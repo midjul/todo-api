@@ -66,12 +66,6 @@ describe("GET /todos", () => {
 
         Todo.find()
           .then(todos => {
-            /*
-            console.log("todos", todos[0]);
-            console.log("-----------------");
-            console.log(res.body.todos[0]);
-
-            */
             expect(todos.length).toBe(res.body.todos.length);
             // expect(todos).toEqual(res.body.todos);
             done();
