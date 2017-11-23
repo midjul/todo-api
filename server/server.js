@@ -44,6 +44,19 @@ app.get("/todos/:id", (req, res) => {
     .catch(err => res.status(400).json({}));
 });
 
+app.delete("/todos/:id", (req, res) => {
+  const id = req.params.id;
+
+  if (!ObjectID.isValid(id)) return res.status(404).json({});
+
+  Todo.findByIdAndRemove(id)
+    .then(todo => {
+      if (!todo) throw new Error("todo not found"); //res.status(404).json({});
+
+      res.json({ todo });
+    })
+    .catch(err => res.status(400).json({}));
+});
 app.listen(port, () => console.log(`Running on port: ${port}`));
 
 module.exports = {
