@@ -81,6 +81,20 @@ app.patch("/todos/:id", (req, res) => {
     });
 });
 
+app.post("/users", (req, res) => {
+  const userData = _.pick(req.body, ["email", "password"]);
+  const user = new User(userData);
+  user
+    .save()
+    .then(doc => {
+      return user.generateAuthToken();
+    })
+    .then(token => {
+      res.header("x-auth", token).send(user);
+    })
+    .catch(err => res.status(400).send(err));
+});
+
 app.listen(port, () => console.log(`Running on port: ${port}`));
 
 module.exports = {
