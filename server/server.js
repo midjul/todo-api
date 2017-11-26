@@ -110,6 +110,17 @@ app.post("/users/login", (req, res) => {
     })
     .catch(err => res.status(400).json(err));
 });
+
+app.delete("/users/me/token", authenticate, (req, res) => {
+  req.user.removeToken(req.token).then(
+    () => {
+      res.status(200).json();
+    },
+    err => {
+      res.status(400).json();
+    }
+  );
+});
 app.listen(port, () => console.log(`Running on port: ${port}`));
 
 module.exports = {
