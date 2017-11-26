@@ -1,3 +1,4 @@
 node_modules/
 playground/
 config.txt
+server/config/config.json

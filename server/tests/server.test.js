@@ -6,7 +6,6 @@ const { Todo } = require("../models/todo");
 const { User } = require("../models/user");
 const { ObjectID } = require("mongodb");
 const { todos, populateTodos, users, populateUsers } = require("./seed/seed");
-
 beforeEach(populateUsers);
 beforeEach(populateTodos);
 
