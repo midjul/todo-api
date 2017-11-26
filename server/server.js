@@ -99,6 +99,17 @@ app.post("/users", (req, res) => {
 app.get("/users/me", authenticate, (req, res) => {
   res.send(req.user);
 });
+
+app.post("/users/login", (req, res) => {
+  const user = _.pick(req.body, ["email", "password"]);
+  User.findByCredentials(user.email, user.password)
+    .then(user => {
+      return user.generateAuthToken().then(token => {
+        res.header("x-auth", token).json(user);
+      });
+    })
+    .catch(err => res.status(400).json(err));
+});
 app.listen(port, () => console.log(`Running on port: ${port}`));
 
 module.exports = {
